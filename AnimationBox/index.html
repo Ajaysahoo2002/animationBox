@@ -1,0 +1,178 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Animation Controller</title>
+    <style>
+        * {
+            padding: 0;
+            margin: 0;
+            box-sizing: border-box;
+            font-family: sans-serif;
+        }
+
+        body {
+            background-color: #1a1a1a;
+        }
+
+        .title {
+            text-align: center;
+            color: #fff;
+            font-size: 3rem;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+
+        .animation-card {
+            height: 800px;
+            margin: 50px;
+            display: flex;
+            overflow: hidden;
+            border-radius: 24px;
+            box-shadow: 0px 0px 20px rgba(0, 0, 0, 0.5);
+            align-items: center;
+        }
+
+        .controls {
+            display: flex;
+            height: 100%;
+            flex-direction: column;
+            align-items: center;
+            justify-content: start;
+            background-color: #141414;
+            padding: 30px;
+            width: 250px;
+        }
+
+        .controls label {
+            color: #fff;
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-align: left;
+            width: 100%;
+        }
+
+        .slider {
+            width: 100%;
+            height: 5px;
+            border-radius: 5px;
+            background: #d3d3d3;
+            outline: none;
+        }
+
+        .slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 15px;
+            height: 15px;
+            border-radius: 50%;
+            background: #ffffff;
+            cursor: pointer;
+        }
+
+        .animation-container {
+            width: 100%;
+            height: 100%;
+            display: flex;
+            background: #e600c5;
+            overflow: hidden;
+            justify-content: center;
+            align-items: center;
+            padding-top: 200px;
+            padding-bottom: 200px;
+        }
+
+        .animation-div {
+            background: #e600c5;
+        }
+
+        #animation-box {
+            width: 200px;
+            height: 200px;
+            border-radius: 20px;
+            background: #fff;
+            transform: rotate(0deg);
+            -webkit-transform: rotate(0deg);
+            -ms-transform: rotate(0deg);
+        }
+    </style>
+</head>
+
+<body>
+    <h1 class="title">Animate the Box</h1>
+    <div class="animation-card">
+        <form class="controls" id="animation-controls">
+            <label id="anim-x-label" htmlFor="anim-x">X: <span id="value1">0%</span></label>
+            <input type="range" onchange="rotateX(this.value)" value="0" min="-100" max="100" class="slider" id="anim-x"
+                name="anim-x" />
+            <label id="anim-y-label" htmlFor="anim-y">Y: <span id="value2">0%</span></label>
+            <input type="range" onchange="rotateY(this.value)" value="0" min="-100" max="100" class="slider" id="anim-y" name="anim-y" />
+            <label id="anim-scale-label" htmlFor="anim-scale">Scale: <span id="scaleValue">1</span></label>
+            <input type="range" onchange="Scale(this.value)" value="1" min="0" max="2" step="0.1" class="slider" id="anim-scale" name="anim-scale" />
+            <label id="anim-rotation-label" htmlFor="anim-rotation">Rotate: <span id="rotateValue">0 deg</span></label>
+            <input type="range" onchange="Rotate(this.value)" value="0" min="0" max="360" class="slider" id="anim-rotation" />
+            <label id="anim-duration-label" htmlFor="anim-duration">Duration: <span id="durationValue">0s</span></label>
+            <input type="range" onchange="DurationTime(this.value)" value="0" min="0" max="5" step="1" class="slider" id="anim-duration" />
+        </form>
+        <div class="animation-container">
+            <div class="animation-div" id="animation-box"></div>
+        </div>
+    </div>
+    <script>
+        const inputX = document.getElementById("anim-x");
+        const inputY = document.getElementById("anim-y");
+        const scaleField = document.getElementById("anim-scale");
+        const rotateField = document.getElementById("anim-rotation");
+        const durationField = document.getElementById("anim-duration");
+
+        let val1 = document.getElementById("value1");
+        let val2 = document.getElementById("value2");
+        let scale = document.getElementById("scaleValue");
+        let rotate = document.getElementById("rotateValue");
+        let duration = document.getElementById("durationValue");
+
+        inputX.addEventListener("input", function () {
+            val1.innerText = (parseInt(inputX.value)) + "%";
+        });
+
+        inputY.addEventListener("input", function () {
+            val2.innerText = (parseInt(inputY.value)) + "%";
+        });
+
+        scaleField.addEventListener("input", function () {
+            scale.innerText = (parseFloat(scaleField.value));
+        });
+
+        rotateField.addEventListener("input", function () {
+            rotate.innerText = (parseInt(rotateField.value)) + " deg";
+        });
+
+        durationField.addEventListener("input", function () {
+            duration.innerText = (parseInt(durationField.value)) + "s";
+        });
+
+        // functions
+        function rotateX(value) {
+            document.getElementById('animation-box').style.transform = "rotateX(" + value + "deg)";
+        }
+        function rotateY(value) {
+            document.getElementById('animation-box').style.transform = "rotateY(" + value + "deg)";
+        }
+        function Scale(value) {
+            document.getElementById('animation-box').style.scale = value;
+        }
+        function Rotate(value) {
+            document.getElementById('animation-box').style.transform = "rotate(" + value + "deg)";
+        }
+        function DurationTime(value) {
+            document.getElementById('animation-box').style.transition = value+"s";
+        }
+    </script>
+</body>
+
+</html>
